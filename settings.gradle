@@ -1,2 +1,8 @@
-rootProject.name = 'RestfulTool'
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        maven { url 'https://plugins.jetbrains.com/m2' }
+    }
+}
 
+rootProject.name = 'RestfulTool'

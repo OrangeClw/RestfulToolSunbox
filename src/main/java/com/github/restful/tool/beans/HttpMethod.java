@@ -64,7 +64,12 @@ public enum HttpMethod {
     /**
      * TRACE
      */
-    TRACE;
+    TRACE,
+
+    /**
+     * SUNBOX
+     */
+    SUNBOX;
 
     @NotNull
     public static HttpMethod[] getValues() {

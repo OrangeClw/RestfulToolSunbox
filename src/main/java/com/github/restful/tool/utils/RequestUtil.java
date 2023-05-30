@@ -13,6 +13,8 @@ package com.github.restful.tool.utils;
 import com.github.restful.tool.beans.Request;
 import com.github.restful.tool.utils.scanner.JaxrsHelper;
 import com.github.restful.tool.utils.scanner.SpringHelper;
+import com.github.restful.tool.utils.scanner.SunboxHelper;
+
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.project.Project;
@@ -96,6 +98,12 @@ public class RequestUtil {
         List<Request> springRequestByModule = SpringHelper.getSpringRequestByModule(project, module);
         if (!springRequestByModule.isEmpty()) {
             requests.addAll(springRequestByModule);
+        }
+
+        // Sunbox 方式
+        List<Request> sunboxRequestByModule = SunboxHelper.getSunboxRequestByModule(project, module);
+        if (!sunboxRequestByModule.isEmpty()) {
+            requests.addAll(sunboxRequestByModule);
         }
         return requests;
     }
