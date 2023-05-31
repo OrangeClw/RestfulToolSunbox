@@ -15,6 +15,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 public class SunboxHelper {
 
@@ -67,8 +68,9 @@ public class SunboxHelper {
 
         // 检查类的超类，以决定路径前缀是 "json" 还是 "rest"
         PsiClass superClass = psiClass.getSuperClass();
+        String superClassName = "";
         if (superClass != null) {
-            String superClassName = superClass.getQualifiedName();
+            superClassName = superClass.getQualifiedName();
             if ("sunbox.core.action.app.AppAction".equals(superClassName)
                     || "sunbox.core.action.system.SystemAction".equals(superClassName)) {
                 pathPrefix = "json";
@@ -97,7 +99,8 @@ public class SunboxHelper {
                             PsiClassType classType = (PsiClassType) returnType;
                             PsiClass resolvedClass = classType.resolve();
                             // 如果返回类型为 "java.util.List"，则将路径前缀设置为 "jqGrid"
-                            if (resolvedClass != null && "java.util.List".equals(resolvedClass.getQualifiedName())) {
+                            if (resolvedClass != null && "java.util.List".equals(resolvedClass.getQualifiedName())
+                                    && "sunbox.core.action.app.AppAction".equals(superClassName)) {
                                 path = "/" + lastPackageName + "/jqGrid/" + formattedClassName + "/" + psiMethod.getName();
                             }
                         }

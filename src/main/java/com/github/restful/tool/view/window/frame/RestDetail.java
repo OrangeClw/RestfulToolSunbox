@@ -208,7 +208,7 @@ public class RestDetail extends JPanel {
         });
 
         MessageBusConnection messageBusConnection = project.getMessageBus().connect();
-        messageBusConnection.subscribe(RestDetailTopic.TOPIC, request -> {
+        messageBusConnection.subscribe(RestDetailTopic.TOPIC, (RestDetailTopic) request -> {
             if (request != null) {
                 headCache.remove(request);
                 bodyCache.remove(request);

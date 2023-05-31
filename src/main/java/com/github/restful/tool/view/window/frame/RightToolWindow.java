@@ -80,8 +80,8 @@ public class RightToolWindow extends JPanel {
         this.serviceTree.setChooseRequestCallback(restDetail::chooseRequest);
         this.restDetail.setCallback(this::refreshRequestTree);
 
-        project.getMessageBus().connect().subscribe(ServiceTreeTopic.TOPIC, serviceTree::renderRequestTree);
-        project.getMessageBus().connect().subscribe(RefreshServiceTreeTopic.TOPIC, this::refreshRequestTree);
+        project.getMessageBus().connect().subscribe(ServiceTreeTopic.TOPIC);
+        project.getMessageBus().connect().subscribe(RefreshServiceTreeTopic.TOPIC);
     }
 
     private void firstLoad() {
