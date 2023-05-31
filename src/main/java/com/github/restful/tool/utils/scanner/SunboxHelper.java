@@ -100,7 +100,7 @@ public class SunboxHelper {
                             PsiClass resolvedClass = classType.resolve();
                             // 如果返回类型为 "java.util.List"，则将路径前缀设置为 "jqGrid"
                             if (resolvedClass != null && "java.util.List".equals(resolvedClass.getQualifiedName())
-                                    && "sunbox.core.action.app.AppAction".equals(superClassName)) {
+                                    && !"sunbox.core.action.app.AppAction".equals(superClassName)) {
                                 path = "/" + lastPackageName + "/jqGrid/" + formattedClassName + "/" + psiMethod.getName();
                             }
                         }

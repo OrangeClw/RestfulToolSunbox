@@ -1,25 +1,36 @@
 package com.github.restful.tool.view.window.frame;
 
+import com.github.restful.tool.beans.ClassTree;
 import com.github.restful.tool.beans.HttpMethod;
+import com.github.restful.tool.beans.ModuleTree;
 import com.github.restful.tool.beans.Request;
+import com.github.restful.tool.beans.settings.Settings;
 import com.github.restful.tool.service.topic.RefreshServiceTreeTopic;
 import com.github.restful.tool.service.topic.RestDetailTopic;
 import com.github.restful.tool.service.topic.ServiceTreeTopic;
+import com.github.restful.tool.utils.Bundle;
 import com.github.restful.tool.utils.PomUtil;
 import com.github.restful.tool.utils.RequestUtil;
 import com.github.restful.tool.view.window.RestfulToolWindowFactory;
 import com.intellij.openapi.actionSystem.*;
 import com.intellij.openapi.project.DumbService;
 import com.intellij.openapi.project.Project;
+import com.intellij.psi.NavigatablePsiElement;
+import com.intellij.psi.PsiClass;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import com.intellij.ui.JBSplitter;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.TreePath;
 import java.awt.*;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * @author ZhangYuanSheng
@@ -80,8 +91,8 @@ public class RightToolWindow extends JPanel {
         this.serviceTree.setChooseRequestCallback(restDetail::chooseRequest);
         this.restDetail.setCallback(this::refreshRequestTree);
 
-        project.getMessageBus().connect().subscribe(ServiceTreeTopic.TOPIC);
-        project.getMessageBus().connect().subscribe(RefreshServiceTreeTopic.TOPIC);
+        project.getMessageBus().connect().subscribe(ServiceTreeTopic.TOPIC, serviceTree::renderRequestTree);
+        project.getMessageBus().connect().subscribe(RefreshServiceTreeTopic.TOPIC, this::refreshRequestTree);
     }
 
     private void firstLoad() {
